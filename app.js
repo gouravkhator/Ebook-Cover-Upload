@@ -11,7 +11,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 //Middleware
-app.use(express.static('css'));
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
@@ -81,6 +81,15 @@ app.post('/upload', (req, res) => {
         if (err) {
             getFiles(res, err);
         } else {
+            const title = req.body.title;
+            const description = req.body.description;
+            gfs.files.update({ filename: req.file.filename }, {
+                $set: {
+                    metadata: {
+                        title, description
+                    }
+                }
+            });
             res.redirect('/');
         }
     });
@@ -114,4 +123,4 @@ app.delete('/images/:id', (req, res) => {
     }); //root is the collection name necessary to give
 });
 
-app.listen(3000, () => console.log(`Server started on port 3000`));
+app.listen(5000, () => console.log(`Server started on port 5000`));

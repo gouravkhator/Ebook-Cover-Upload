@@ -28,6 +28,11 @@ img {
     grid-column-gap: .5rem;
 }
 
+textarea{
+    max-height: 15vh;
+    max-width: 80vw;
+}
+
 label[for='file']{ /* choose file label should not centered aligned*/
     text-align: start !important;
 }
