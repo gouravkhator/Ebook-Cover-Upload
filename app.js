@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
 const mongoURI = 'mongodb+srv://user:Y8txPOrK64z93w4l@cluster0-naz12.mongodb.net/test?retryWrites=true&w=majority';
+// const mongoURI= 'mongodb://localhost/ebooks';
 
 //Create mongo connection
 const conn = mongoose.createConnection(mongoURI, { useNewUrlParser: true });
@@ -71,6 +72,7 @@ function getFiles(res, err = null) {
         if (!files || files.length === 0) {
             res.render('index', { files: false, err });
         } else {
+            files.reverse();
             res.render('index', { files, err });
         }
     });
