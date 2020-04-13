@@ -48,7 +48,7 @@ const storage = new GridFsStorage({
     }
 });
 
-const imageMimeTypes = ['image/jpeg', 'image/png'];
+const imageMimeTypes = ['image/jpeg'];
 const upload = multer({
     storage,
     limits: {
@@ -58,7 +58,7 @@ const upload = multer({
         if (imageMimeTypes.includes(file.mimetype)) {
             callback(null, true);
         } else {
-            callback('Cannot upload non-image file', false);
+            callback('Cannot upload file other than jpeg files', false);
         }
     }
 });
@@ -106,7 +106,7 @@ app.get('/image/:filename', (req, res) => {
             });
         }
 
-        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+        if (file.contentType === 'image/jpeg') {
             //Read output to browser
             const readStream = gfs.createReadStream(file.filename);
             readStream.pipe(res);
